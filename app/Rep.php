@@ -26,12 +26,12 @@ class Rep extends Model implements HasPresenter
     public function getTwitterLinks(): array
     {
         $twitter_handles = explode(' ',$this->twitter);
-        $twitter='';
+        $twitter = array();
 
         foreach ($twitter_handles as $twitter_handle) {
-           // if ($twitter_handle!='') {
+            if ($twitter_handle!='') {
                 $twitter[] = str_replace('@','',$twitter_handle);
-            //}
+            }
 
         }
         return $twitter;

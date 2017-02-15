@@ -19,120 +19,154 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 
-
-        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
 
+        <script src="https://use.fontawesome.com/266be36395.js"></script>
+
 
     </head>
     <body>
-        <div class="col-md-12">
-            <div class="content">
-                <h1 class="text-center">resist.red </h1>
-                <table class="table table-striped"
-                       data-toggle="table"
-                       data-search="true"
-                       data-show-toggle="true"
-                       data-show-columns="true"
-                       data-show-export="true"
-                       data-pagination="true"
-                       data-page-list="[100, ALL]"
-                       data-page-size="100"
-                       data-show-footer="false">
-                    <thead>
-                    <th data-field="name" data-sortable="true">
-                        Name
-                    </th>
-                    <th data-sortable="true">
-                        Chamber
-                    </th>
-                    <th data-sortable="true">
-                        State
-                    </th>
-                    <th data-sortable="true">
-                        District
-                    </th>
-                    <th data-sortable="true">
-                        Party
-                    </th>
-                    <th data-sortable="true">
-                        Twitter
-                    </th>
-                    <th data-sortable="true">
-                        Term Ends
-                    </th>
-                    <th data-sortable="true">
-                        Next Term Ends
-                    </th>
-                    <th data-sortable="true">
-                        Committees
-                    </th>
-                    </thead>
-               @foreach($reps as $rep)
-                   <tr>
-                       <td>{{ $rep->firstname }}
-                   {{ $rep->lastname }}</td>
-                       <td>
-                           {{ $rep->congress }}
-                       </td>
-
-                       <td>
-                           {{ $rep->rep_state }}
-                       </td>
-
-                       <td data-visible="false">
-                           {{ $rep->district }}
-                       </td>
 
 
-                       <td>
-                           @if ($rep->party=='R')
-                               <span class="label label-danger">{{ $rep->party }}</span>
-                           @elseif ($rep->party=='D')
-                               <span class="label label-primary">{{ $rep->party }}</span>
-                           @else
-                               <span class="label label-default">{{ $rep->party }}</span>
-                           @endif
-                       </td>
-                       <td>
+    <!-- Page Content -->
+    <div class="container">
 
-                           @foreach ($rep->getTwitterLinks() as $index => $twitter_handle)
-                               <a href="https://twitter.com/intent/user/?screen_name={{ $twitter_handle }}">{{ '@'.$twitter_handle }}</a><br>
-                           @endforeach
+        <hr class="featurette-divider">
 
-                       </td>
-                       <td>
-                           {{ $rep->current_term_ends }}
-                       </td>
-                       <td>
-                           {{ $rep->next_term_ends }}
-                       </td>
-                       <td>
-                           @foreach ($rep->committees as $committee)
-                               @if ($committee->pivot->membership_type=='C')
-                                   <span class="label label-danger">Chairman {{ $committee->name }}</span>
-                               @elseif ($committee->pivot->membership_type=='CE')
-                                   <span class="label label-warning">{{ $committee->name }}</span>
-                               @elseif ($committee->pivot->membership_type=='VC')
-                                   <span class="label label-primary">{{ $committee->name }}</span>
-                               @else
-                                    <span class="label label-default">{{ $committee->name }}</span>
-                               @endif
-
-                           @endforeach
-                       </td>
-                   </tr>
-
-               @endforeach
-                </table>
-            </div>
+        <!-- First Featurette -->
+        <div class="featurette" id="about">
+            <h2 class="featurette-heading">Resist
+                <span class="text-muted">Red</span>
+            </h2>
+            <p class="lead">Find the contact information for your local congress members and let them know what you think. Remember, they work for you.</p>
         </div>
+
+        <hr class="featurette-divider">
+
+        <table id="table" class="table table-striped"
+               data-show-columns="true"
+               data-show-footer="false">
+            <thead>
+            <th data-field="name" data-sortable="true">
+                Name
+            </th>
+            <th data-sortable="true">
+                Chamber
+            </th>
+            <th data-sortable="true">
+                State
+            </th>
+            <th data-sortable="true">
+                District
+            </th>
+            <th data-sortable="true">
+                Party
+            </th>
+            <th data-sortable="true">
+                Twitter
+            </th>
+            <th data-sortable="true">
+                Phone
+            </th>
+            <th data-sortable="true">
+                Term Ends
+            </th>
+            <th data-sortable="true">
+                Next Term Ends
+            </th>
+            <th data-sortable="true">
+                Committees
+            </th>
+            </thead>
+            @foreach($reps as $rep)
+                <tr
+                        @if ($rep->party=='R')
+                        class="danger"
+                        @elseif ($rep->party=='D')
+                        class="info"
+                        @else
+                        class="warning"
+                        @endif
+                >
+                    <td>{{ $rep->firstname }}
+                        {{ $rep->lastname }}</td>
+                    <td>
+                        {{ $rep->congress }}
+                    </td>
+
+                    <td>
+                        {{ $rep->rep_state }}
+                    </td>
+
+                    <td data-visible="false">
+                        {{ $rep->district }}
+                    </td>
+
+
+                    <td>
+                        @if ($rep->party=='R')
+                            <span class="label label-danger">{{ $rep->party }}</span>
+                        @elseif ($rep->party=='D')
+                            <span class="label label-primary">{{ $rep->party }}</span>
+                        @else
+                            <span class="label label-default">{{ $rep->party }}</span>
+                        @endif
+                    </td>
+                    <td>
+
+                        @foreach ($rep->getTwitterLinks() as $index => $twitter_handle)
+                            <a href="https://twitter.com/intent/user/?screen_name={{ $twitter_handle }}">{{ '@'.$twitter_handle }}</a><br>
+                        @endforeach
+
+                    </td>
+                    <td>
+                        <a href="tel:{{ $rep->phone }}">{{ $rep->phone }}</a>
+                    </td>
+
+                    <td>
+                        {{ $rep->current_term_ends }}
+                    </td>
+                    <td>
+                        {{ $rep->next_term_ends }}
+                    </td>
+                    <td>
+                        @foreach ($rep->committees as $committee)
+                            @if ($committee->pivot->membership_type=='C')
+                                <span class="label label-danger">Chairman {{ $committee->name }}</span>
+                            @elseif ($committee->pivot->membership_type=='CE')
+                                <span class="label label-warning">{{ $committee->name }}</span>
+                            @elseif ($committee->pivot->membership_type=='VC')
+                                <span class="label label-primary">{{ $committee->name }}</span>
+                            @else
+                                <span class="label label-default">{{ $committee->name }}</span>
+                            @endif
+
+                        @endforeach
+                    </td>
+                </tr>
+
+            @endforeach
+        </table>
+
+
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Made with <i class="fa fa-heart text-danger"></i> and an undying commitment to the constitution and country  by <a href="http://twitter.com/snipeyhead">@snipeyhead</a>. <a href="https://docs.google.com/spreadsheets/u/1/d/1gFXRkIsX0dQw7H1L-FVvf7Z6us9N7_xBltPLyAPbhg0/htmlview">Initial data</a> provided by <a href="https://twitter.com/robynburlingam1">@robynburlingam1</a>. Fork this project <a href="https://github.com/snipe/resist">here</a>. API coming soon. Corrections should be sent to <a href="mailto:resist@resist.red">resist@resist.red</a>.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+
 
         <script
                 src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -141,6 +175,68 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+
+        <script>
+
+            $('#table').bootstrapTable({
+                classes: 'table table-responsive table-no-bordered',
+                undefinedText: '',
+                iconsPrefix: 'fa',
+                showRefresh: false,
+                search: true,
+                pageSize: 100,
+                pagination: true,
+                sidePagination: 'client',
+                sortable: true,
+                cookie: true,
+                cookieExpire: '2y',
+                mobileResponsive: true,
+                showMultiSort: true,
+                //showExport: true,
+                showColumns: true,
+                trimOnSearch: false,
+                exportDataType: 'all',
+                exportTypes: ['csv', 'excel', 'doc', 'txt','json', 'xml', 'pdf'],
+                exportOptions: {
+                    fileName: 'congress-' + (new Date()).toISOString().slice(0,10),
+                    worksheetName: "Congress Members Export",
+                    jspdf: {
+                        autotable: {
+                            styles: {
+                                rowHeight: 20,
+                                fontSize: 10,
+                                overflow: 'linebreak',
+                            },
+                            headerStyles: {fillColor: 255, textColor: 0},
+                            //alternateRowStyles: {fillColor: [60, 69, 79], textColor: 255}
+                        }
+                    }
+                },
+                maintainSelected: true,
+                paginationFirstText: "First",
+                paginationLastText: "Last",
+                paginationPreText: "Previous",
+                paginationNextText: "Next",
+                formatLoadingMessage: function () {
+                    return '<h4><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Loading... please wait.... </h4>';
+                },
+                pageList: ['100','150','200','500','1000'],
+                icons: {
+                    paginationSwitchDown: 'fa-caret-square-o-down',
+                    paginationSwitchUp: 'fa-caret-square-o-up',
+                    columns: 'fa-columns',
+                    sort: 'fa fa-sort-amount-desc',
+                    plus: 'fa fa-plus',
+                    minus: 'fa fa-minus',
+                    refresh: 'fa-refresh'
+                },
+
+            });
+
+        </script>
+
 
     </body>
 </html>

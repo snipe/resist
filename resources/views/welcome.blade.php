@@ -5,7 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Resist.Red</title>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
+        <![endif]-->
 
         <!-- Fonts -->
         <!-- Latest compiled and minified CSS -->
@@ -14,39 +22,55 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
         <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+
 
     </head>
     <body>
         <div class="col-md-12">
             <div class="content">
                 <h1 class="text-center">resist.red </h1>
-                <table class="table table-striped">
+                <table class="table table-striped"
+                       data-toggle="table"
+                       data-search="true"
+                       data-show-toggle="true"
+                       data-show-columns="true"
+                       data-show-export="true"
+                       data-pagination="true"
+                       data-page-list="[100, ALL]"
+                       data-page-size="100"
+                       data-show-footer="false">
                     <thead>
-                    <th>
+                    <th data-field="name" data-sortable="true">
                         Name
                     </th>
-                    <th>
-                        Congress
+                    <th data-sortable="true">
+                        Chamber
                     </th>
-                    <th>
+                    <th data-sortable="true">
                         State
                     </th>
-                    <th>
+                    <th data-sortable="true">
+                        District
+                    </th>
+                    <th data-sortable="true">
                         Party
                     </th>
-                    <th>
+                    <th data-sortable="true">
                         Twitter
                     </th>
-                    <th>
-                        Current Term Ends
+                    <th data-sortable="true">
+                        Term Ends
                     </th>
-                    <th>
+                    <th data-sortable="true">
                         Next Term Ends
                     </th>
-                    <th>
+                    <th data-sortable="true">
                         Committees
                     </th>
                     </thead>
@@ -60,6 +84,10 @@
 
                        <td>
                            {{ $rep->rep_state }}
+                       </td>
+
+                       <td data-visible="false">
+                           {{ $rep->district }}
                        </td>
 
 
@@ -105,5 +133,14 @@
                 </table>
             </div>
         </div>
+
+        <script
+                src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
     </body>
 </html>

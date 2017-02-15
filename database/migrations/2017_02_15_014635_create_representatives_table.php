@@ -18,12 +18,14 @@ class CreateRepresentativesTable extends Migration
             $table->string('firstname')->index();
             $table->string('lastname')->index();
             $table->string('congress',7)->index();
-            $table->string('rep_state',2)->index();
+            $table->string('rep_state',30)->index();
             $table->string('party',1)->index();
             $table->string('district')->nullable()->default(null);
             $table->string('current_term_ends')->nullable()->default(null);
             $table->string('next_term_ends')->nullable()->default(null);
             $table->string('phone')->nullable()->default(null);
+            $table->string('email')->nullable()->default(null);
+            $table->string('email2')->nullable()->default(null);
             $table->string('fax')->nullable()->default(null);
             $table->string('twitter')->nullable()->default(null);
             $table->string('facebook')->nullable()->default(null);

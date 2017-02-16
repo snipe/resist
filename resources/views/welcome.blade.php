@@ -4,6 +4,16 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="Congress, US Congress, US House of Representatives, US Senate, legislation, committees, committee chair, representative contacts">
+        <meta name="description" content="Look up your local representative in Congress.">
+
+        <meta property="og:url"                content="https://resist.red" />
+        <meta property="og:type"               content="website" />
+        <meta property="og:title"              content="Resist.Red" />
+        <meta property="og:description"        content="Look up your local representative in Congress and see their committee memberships." />
+        <meta property="og:image"              content="https://resist.red/img/congress.jpg" />
+
+
 
         <title>Resist.Red</title>
 
@@ -48,6 +58,7 @@
         <hr>
 
         <table id="table" class="table table-striped"
+               data-advanced-search="true"
                 data-search="true"
                >
             <thead>
@@ -95,7 +106,9 @@
                     </td>
 
                     <td data-visible="false">
+                        @if ($rep->district!='At Lrg')
                         {{ $rep->district }}
+                        @endif
                     </td>
 
 
@@ -167,8 +180,7 @@
 
         <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
-        <script src="{{ asset('js/bootstrap-table-multiple-sort.min.js') }}"></script>
-
+        <script src="{{ asset('js/bootstrap-table-toolbar.js') }}"></script>
         <script src="{{ asset('js/bootstrap-table-export.js') }}"></script>
         <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
@@ -192,8 +204,8 @@
                 sortable: true,
                 cookie: true,
                 cookieExpire: '2y',
+                advancedSearch: true,
                 mobileResponsive: true,
-                showMultiSort: false,
                 showExport: true,
                 showColumns: true,
                 trimOnSearch: false,

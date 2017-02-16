@@ -83,15 +83,7 @@
             </th>
             </thead>
             @foreach($reps as $rep)
-                <tr
-                        @if ($rep->party=='R')
-                        class="danger"
-                        @elseif ($rep->party=='D')
-                        class="info"
-                        @else
-                        class="warning"
-                        @endif
-                >
+                <tr>
                     <td>{{ $rep->firstname }}
                         {{ $rep->lastname }}</td>
                     <td>

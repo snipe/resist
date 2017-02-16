@@ -35,7 +35,7 @@
     <!-- Page Content -->
     <div class="container">
 
-        <hr class="featurette-divider">
+        <hr>
 
         <!-- First Featurette -->
         <div class="featurette" id="about">
@@ -45,11 +45,11 @@
             <p class="lead">Find the contact information for your local congress members and let them know what you think. Remember, they work for you.</p>
         </div>
 
-        <hr class="featurette-divider">
+        <hr>
 
         <table id="table" class="table table-striped"
-               data-show-columns="true"
-               data-show-footer="false">
+                data-search="true"
+               >
             <thead>
             <th data-field="name" data-sortable="true">
                 Name
@@ -158,7 +158,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Made with <i class="fa fa-heart text-danger"></i> and an undying commitment to the constitution and country  by <a href="http://twitter.com/snipeyhead">@snipeyhead</a>. <a href="https://docs.google.com/spreadsheets/u/1/d/1gFXRkIsX0dQw7H1L-FVvf7Z6us9N7_xBltPLyAPbhg0/htmlview">Initial data</a> provided by <a href="https://twitter.com/robynburlingam1">@robynburlingam1</a>. Fork this project <a href="https://github.com/snipe/resist">here</a>. API coming soon. Corrections should be sent to <a href="mailto:resist@resist.red">resist@resist.red</a>.</p>
+                    <p>Made with <i class="fa fa-heart text-danger"></i> and a deep commitment to the constitution and country by <a href="http://twitter.com/snipeyhead">@snipeyhead</a>. <a href="https://docs.google.com/spreadsheets/u/1/d/1gFXRkIsX0dQw7H1L-FVvf7Z6us9N7_xBltPLyAPbhg0/htmlview">Initial data</a> provided by <a href="https://twitter.com/robynburlingam1">@robynburlingam1</a>. Fork this project <a href="https://github.com/snipe/resist">here</a>. API coming soon. Corrections should be sent to <a href="mailto:resist@resist.red">resist@resist.red</a>.</p>
                 </div>
             </div>
         </footer>
@@ -168,13 +168,21 @@
 
 
 
-        <script
-                src="https://code.jquery.com/jquery-3.1.1.min.js"
-                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-                crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
 
         <!-- Latest compiled and minified JavaScript -->
+
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+        <script src="{{ asset('js/bootstrap-table-multiple-sort.min.js') }}"></script>
+
+        <script src="{{ asset('js/bootstrap-table-export.js') }}"></script>
+        <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+        <script src="{{ asset('js/export/FileSaver.min.js') }}"></script>
+        <script src="{{ asset('js/export/jspdf.plugin.autotable.js') }}"></script>
+        <script src="{{ asset('js/export/jquery.base64.js') }}"></script>
 
         <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
 
@@ -193,8 +201,8 @@
                 cookie: true,
                 cookieExpire: '2y',
                 mobileResponsive: true,
-                showMultiSort: true,
-                //showExport: true,
+                showMultiSort: false,
+                showExport: true,
                 showColumns: true,
                 trimOnSearch: false,
                 exportDataType: 'all',
@@ -210,7 +218,6 @@
                                 overflow: 'linebreak',
                             },
                             headerStyles: {fillColor: 255, textColor: 0},
-                            //alternateRowStyles: {fillColor: [60, 69, 79], textColor: 255}
                         }
                     }
                 },
@@ -227,13 +234,24 @@
                     paginationSwitchDown: 'fa-caret-square-o-down',
                     paginationSwitchUp: 'fa-caret-square-o-up',
                     columns: 'fa-columns',
+                    export: 'fa-download',
                     sort: 'fa fa-sort-amount-desc',
                     plus: 'fa fa-plus',
                     minus: 'fa fa-minus',
                     refresh: 'fa-refresh'
                 },
 
+
             });
+
+            var $table = $('#table');
+            $(function () {
+                $('#toolbar').find('select').change(function () {
+                    $table.bootstrapTable('destroy').bootstrapTable({
+                        exportDataType: $(this).val()
+                    });
+                });
+            })
 
         </script>
 
